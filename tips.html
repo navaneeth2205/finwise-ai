@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Financial Tips — FinWise AI</title>
+  <meta name="description" content="Get context-aware financial advice powered by advanced generative models.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-brain"></i></div>
+          <div>
+            <span class="logo-name">FinWise AI</span>
+            <span class="logo-tagline">Smart Finance</span>
+          </div>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <p class="nav-section-title">Main Menu</p>
+        <ul>
+          <li class="nav-item"><a href="index.html"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+          <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
+          <li class="nav-item"><a href="credit-score.html"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
+          <li class="nav-item"><a href="emi.html"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="tips.html" class="active"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
+        </ul>
+        <p class="nav-section-title">Configuration</p>
+        <ul>
+          <li class="nav-item"><a href="#" onclick="openSettings();return false;"><i class="fas fa-cog nav-icon"></i><span>API Settings</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <div class="api-status" onclick="openSettings()">
+          <div class="status-dot inactive" id="apiStatusDot"></div>
+          <span id="apiStatusText">Configure API Key</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hamburger & Overlay -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-content">
+          <h1>AI Financial Tips</h1>
+          <p>Consult our neural model for personalized investment strategies, debt reductions, and tax optimizations.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid-2">
+          <!-- Left Input Column -->
+          <div>
+            <div class="glass-card" style="padding:30px; margin-bottom:24px;">
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:20px;"><i class="fas fa-user-circle" style="color:var(--accent-blue); margin-right:8px;"></i>Your Financial Profile</h3>
+              <form id="tipsForm" onsubmit="event.preventDefault(); getAITips();">
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="tIncome">Monthly Income (₹)</label>
+                    <input type="number" id="tIncome" class="form-control" placeholder="60000" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="tScore">Credit Score</label>
+                    <input type="number" id="tScore" class="form-control" placeholder="750" min="300" max="900" required>
+                  </div>
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="tEmi">Existing EMIs (₹)</label>
+                    <input type="number" id="tEmi" class="form-control" placeholder="5000" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="tSavings">Monthly Savings (₹)</label>
+                    <input type="number" id="tSavings" class="form-control" placeholder="15000" required>
+                  </div>
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="tAge">Applicant Age</label>
+                    <input type="number" id="tAge" class="form-control" placeholder="28" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="tGoal">Primary Financial Goal</label>
+                    <select id="tGoal" class="form-control" required style="background-image:none;">
+                      <option value="Home Loan">Purchase Home Loan</option>
+                      <option value="Car Loan">Buy Vehicle (Car Loan)</option>
+                      <option value="Debt Reduction">Debt Reduction / Clear EMIs</option>
+                      <option value="Credit Score Improvement">CIBIL Score Optimization</option>
+                      <option value="Investment Planning">Retirement / High Yield Savings</option>
+                      <option value="Education Loan">Higher Studies</option>
+                      <option value="Business Loan">Startup / Corporate expansion</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="tQuestion">Specific Question or Request</label>
+                  <textarea id="tQuestion" class="form-control" rows="3" placeholder="What are the best investment channels or loan prepayment options for my profile?" required></textarea>
+                </div>
+
+                <button type="submit" id="tipsBtn" class="btn btn-primary btn-block"><i class="fas fa-magic"></i> Generate AI Advisor Report</button>
+              </form>
+            </div>
+
+            <!-- Quick prompts -->
+            <div class="section-header" style="margin-bottom:16px;">
+              <h4 style="font-family:'Space Grotesk', sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:0.04em;">Suggested Advice Prompts</h4>
+            </div>
+            <div class="grid-2" style="gap:12px;">
+              <div class="glass-card feature-card" style="padding:16px; cursor:pointer;" onclick="setQuickPrompt('What can I do to improve my loan eligibility?')">
+                <p style="font-size:12.5px; font-weight:500;"><i class="fas fa-lightbulb" style="color:var(--warning); margin-right:6px;"></i> Improve Loan Eligibility</p>
+              </div>
+              <div class="glass-card feature-card" style="padding:16px; cursor:pointer;" onclick="setQuickPrompt('How can I improve my credit score fast?')">
+                <p style="font-size:12.5px; font-weight:500;"><i class="fas fa-chart-line" style="color:var(--accent-blue-light); margin-right:6px;"></i> Boost Credit Score</p>
+              </div>
+              <div class="glass-card feature-card" style="padding:16px; cursor:pointer;" onclick="setQuickPrompt('How can I reduce my existing EMI burden?')">
+                <p style="font-size:12.5px; font-weight:500;"><i class="fas fa-coins" style="color:var(--success); margin-right:6px;"></i> Reduce EMI Burden</p>
+              </div>
+              <div class="glass-card feature-card" style="padding:16px; cursor:pointer;" onclick="setQuickPrompt('What are the best investment options for my income level?')">
+                <p style="font-size:12.5px; font-weight:500;"><i class="fas fa-wallet" style="color:var(--accent-purple-light); margin-right:6px;"></i> Yield Investments</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Response Column -->
+          <div>
+            <!-- Empty state -->
+            <div class="glass-card" id="tipsEmpty" style="padding:60px 40px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+              <i class="fas fa-brain" style="font-size:48px; color:var(--text-muted); margin-bottom:20px;"></i>
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:10px;">Consultation Report</h3>
+              <p style="color:var(--text-secondary); font-size:14px; max-width:300px;">Submit your profile context to generate customized advisory plans.</p>
+            </div>
+
+            <!-- Response Panel -->
+            <div class="result-panel info" id="tipsResponse" style="padding:30px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+                <span class="badge badge-purple" style="font-size:10px;"><i class="fas fa-robot"></i> Llama 3.3 70B Active</span>
+                <span id="adviceTime" style="font-size:11px; color:var(--text-muted);">Timestamp</span>
+              </div>
+
+              <!-- AI Output -->
+              <div class="ai-response-card" style="margin-top:0;">
+                <div class="ai-text" id="aiOutputText">Advisory report...</div>
+              </div>
+
+              <div style="display:flex; gap:12px; margin-top:24px;">
+                <button class="btn btn-outline" onclick="copyAdvice()"><i class="fas fa-copy"></i> Copy Text</button>
+                <button class="btn btn-ghost" onclick="saveAdvice()"><i class="fas fa-download"></i> Save Report</button>
+              </div>
+
+              <!-- History list -->
+              <div class="divider"></div>
+              <div id="historySection">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                  <h4 style="font-family:'Space Grotesk', sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:0.04em;">Recent Queries</h4>
+                  <button style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:11px; font-weight:500;" onclick="clearHistory()"><i class="fas fa-trash"></i> Clear</button>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px;" id="historyList">
+                  <!-- queries list -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+        <p>FinWise AI &copy; 2026 — Intelligent Financial Advisory Platform | Built with Groq AI + Google Sheets</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fas fa-cog" style="margin-right:10px;color:var(--accent-blue)"></i>API Configuration</h2>
+        <button class="modal-close" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-tip"><i class="fas fa-info-circle"></i><span>Your API keys are stored locally in your browser and never sent to any server.</span></div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-key"></i> Groq API Key</label>
+        <input type="password" id="groqKeyInput" class="form-control" placeholder="gsk_xxxxxxxxxxxx">
+        <p class="form-hint"><i class="fas fa-external-link-alt"></i> Get your key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent-blue-light)">console.groq.com</a></p>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-table"></i> Google Sheets Webhook URL</label>
+        <input type="url" id="sheetsUrlInput" class="form-control" placeholder="https://script.google.com/macros/s/...">
+        <p class="form-hint">Deploy your Google Apps Script as a Web App and paste the URL here.</p>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/tips.js"></script>
+</body>
+</html>

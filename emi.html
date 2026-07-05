@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMI Calculator — FinWise AI</title>
+  <meta name="description" content="Calculate monthly loan payments using standard formulas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-brain"></i></div>
+          <div>
+            <span class="logo-name">FinWise AI</span>
+            <span class="logo-tagline">Smart Finance</span>
+          </div>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <p class="nav-section-title">Main Menu</p>
+        <ul>
+          <li class="nav-item"><a href="index.html"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+          <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
+          <li class="nav-item"><a href="credit-score.html"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
+          <li class="nav-item"><a href="emi.html" class="active"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="tips.html"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
+        </ul>
+        <p class="nav-section-title">Configuration</p>
+        <ul>
+          <li class="nav-item"><a href="#" onclick="openSettings();return false;"><i class="fas fa-cog nav-icon"></i><span>API Settings</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <div class="api-status" onclick="openSettings()">
+          <div class="status-dot inactive" id="apiStatusDot"></div>
+          <span id="apiStatusText">Configure API Key</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hamburger & Overlay -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-content">
+          <h1>EMI Calculator</h1>
+          <p>Compute monthly payments, track amortized splits, and evaluate loan metrics instantly.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid-2">
+          <!-- Left Input Form -->
+          <div>
+            <div class="glass-card" style="padding:30px; margin-bottom:24px;">
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:20px;"><i class="fas fa-coins" style="color:var(--accent-blue); margin-right:8px;"></i>Loan Parameters</h3>
+              <form id="emiForm" onsubmit="event.preventDefault(); calculateEMI();">
+                <div class="form-group">
+                  <label class="form-label" for="ePrincipal">Principal Loan Amount (₹)</label>
+                  <div class="input-wrapper">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="ePrincipal" class="form-control" placeholder="500000" min="1000" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="eRate">Annual Interest Rate (%)</label>
+                  <div class="input-wrapper">
+                    <input type="number" id="eRate" class="form-control has-suffix" placeholder="10.5" step="0.01" min="0.1" max="50" required>
+                    <span class="input-suffix">%</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="eTenure">Loan Tenure (Months)</label>
+                  <input type="number" id="eTenure" class="form-control" placeholder="60" min="1" required>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">
+                    <button type="button" class="btn btn-ghost btn-sm" onclick="setTenure(12)">1 Yr (12M)</button>
+                    <button type="button" class="btn btn-ghost btn-sm" onclick="setTenure(36)">3 Yr (36M)</button>
+                    <button type="button" class="btn btn-ghost btn-sm" onclick="setTenure(60)">5 Yr (60M)</button>
+                    <button type="button" class="btn btn-ghost btn-sm" onclick="setTenure(120)">10 Yr (120M)</button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-calculator"></i> Calculate EMI</button>
+              </form>
+            </div>
+
+            <!-- Formula display -->
+            <div class="glass-card" style="padding:20px; font-size:12.5px; color:var(--text-secondary); line-height:1.7;">
+              <h4 style="color:var(--text-primary); font-family:'Space Grotesk', sans-serif; font-size:13.5px; margin-bottom:8px;">Standard Reducing Balance Formula</h4>
+              <p style="font-family:monospace; background:rgba(0,0,0,0.2); padding:10px; border-radius:var(--radius-xs); margin-bottom:10px; color:var(--accent-blue-light);">EMI = P &times; R &times; (1+R)^N / ((1+R)^N - 1)</p>
+              <p>Where: <strong>P</strong> = Principal, <strong>R</strong> = Monthly Rate (Annual Rate / 12 / 100), <strong>N</strong> = Tenure in Months.</p>
+            </div>
+          </div>
+
+          <!-- Right Results Display -->
+          <div>
+            <!-- Empty state -->
+            <div class="glass-card" id="emiEmpty" style="padding:60px 40px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+              <i class="fas fa-calculator" style="font-size:48px; color:var(--text-muted); margin-bottom:20px;"></i>
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:10px;">Enter Details</h3>
+              <p style="color:var(--text-secondary); font-size:14px; max-width:300px;">Fill out the parameters on the left and click Calculate to view your monthly payments.</p>
+            </div>
+
+            <!-- Result Panel -->
+            <div class="result-panel info" id="emiResult" style="padding:30px;">
+              <h3 class="result-subtitle" style="margin-bottom:4px; text-transform:uppercase; font-size:12px; letter-spacing:0.06em;">Your Monthly EMI</h3>
+              <h2 class="result-title" id="monthlyEmi" style="font-size:36px; color:var(--accent-blue-light); margin-bottom:24px;">₹0</h2>
+
+              <div class="emi-breakdown">
+                <div class="emi-item">
+                  <div class="emi-item-label">Principal</div>
+                  <div class="emi-item-value emi-total" id="breakPrincipal">₹0</div>
+                </div>
+                <div class="emi-item">
+                  <div class="emi-item-label">Interest</div>
+                  <div class="emi-item-value emi-interest" id="breakInterest">₹0</div>
+                </div>
+                <div class="emi-item">
+                  <div class="emi-item-label">Total Outflow</div>
+                  <div class="emi-item-value emi-monthly" id="breakTotal">₹0</div>
+                </div>
+              </div>
+
+              <!-- Visual progress split -->
+              <div style="margin-top:28px;">
+                <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary); margin-bottom:6px;">
+                  <span>Principal (Split)</span>
+                  <span id="interestPct">Interest (Split)</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="principalBar" style="width: 50%;"></div>
+                </div>
+              </div>
+
+              <!-- Toggle schedule button -->
+              <div style="margin-top:28px;">
+                <button class="btn btn-outline btn-block" onclick="toggleSchedule()"><i class="fas fa-list-ol"></i> View Amortization Schedule</button>
+              </div>
+
+              <!-- Amortization Schedule Container -->
+              <div id="scheduleContainer" style="display:none; margin-top:20px; max-height:220px; overflow-y:auto; border:1px solid var(--glass-border); border-radius:var(--radius-sm); background:rgba(0,0,0,0.15);">
+                <table style="width:100%; border-collapse:collapse; text-align:left; font-size:12px;">
+                  <thead>
+                    <tr style="border-bottom:1px solid var(--glass-border); background:var(--bg-700); color:var(--text-primary); font-weight:bold; position:sticky; top:0;">
+                      <th style="padding:8px;">Mo.</th>
+                      <th style="padding:8px;">Principal Paid</th>
+                      <th style="padding:8px;">Interest Paid</th>
+                      <th style="padding:8px;">Balance Left</th>
+                    </tr>
+                  </thead>
+                  <tbody id="scheduleBody" style="color:var(--text-secondary);">
+                    <!-- rows injected here -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- AI optimizer card -->
+              <div class="ai-response-card" id="emiAI" style="display:none; margin-top:24px;">
+                <div class="ai-label"><i class="fas fa-robot"></i> AI Prepayment & Savings Advisory</div>
+                <div class="ai-text" id="aiText">Optimizing EMI...</div>
+              </div>
+
+              <div style="display:flex; gap:12px; margin-top:30px;">
+                <button class="btn btn-primary" id="aiBtn" onclick="getEmiAI()" style="flex:1;"><i class="fas fa-brain"></i> Optimize with AI</button>
+                <button class="btn btn-ghost" onclick="resetEmi()"><i class="fas fa-undo"></i> Clear</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+        <p>FinWise AI &copy; 2026 — Intelligent Financial Advisory Platform | Built with Groq AI + Google Sheets</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fas fa-cog" style="margin-right:10px;color:var(--accent-blue)"></i>API Configuration</h2>
+        <button class="modal-close" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-tip"><i class="fas fa-info-circle"></i><span>Your API keys are stored locally in your browser and never sent to any server.</span></div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-key"></i> Groq API Key</label>
+        <input type="password" id="groqKeyInput" class="form-control" placeholder="gsk_xxxxxxxxxxxx">
+        <p class="form-hint"><i class="fas fa-external-link-alt"></i> Get your key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent-blue-light)">console.groq.com</a></p>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-table"></i> Google Sheets Webhook URL</label>
+        <input type="url" id="sheetsUrlInput" class="form-control" placeholder="https://script.google.com/macros/s/...">
+        <p class="form-hint">Deploy your Google Apps Script as a Web App and paste the URL here.</p>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/emi.js"></script>
+</body>
+</html>

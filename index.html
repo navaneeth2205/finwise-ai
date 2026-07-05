@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinWise AI — Intelligent Financial Advisory Platform</title>
+  <meta name="description" content="AI-Powered Loan Eligibility, Credit Analysis & Financial Advisory Platform.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-brain"></i></div>
+          <div>
+            <span class="logo-name">FinWise AI</span>
+            <span class="logo-tagline">Smart Finance</span>
+          </div>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <p class="nav-section-title">Main Menu</p>
+        <ul>
+          <li class="nav-item"><a href="index.html" class="active"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+          <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
+          <li class="nav-item"><a href="credit-score.html"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
+          <li class="nav-item"><a href="emi.html"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="tips.html"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
+        </ul>
+        <p class="nav-section-title">Configuration</p>
+        <ul>
+          <li class="nav-item"><a href="#" onclick="openSettings();return false;"><i class="fas fa-cog nav-icon"></i><span>API Settings</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <div class="api-status" onclick="openSettings()">
+          <div class="status-dot inactive" id="apiStatusDot"></div>
+          <span id="apiStatusText">Configure API Key</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hamburger & Overlay -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="live-dot"></span>
+            <span>AI-Powered Financial Intelligence</span>
+          </div>
+          <h1>Smart Financial <span class="gradient-text">Decisions</span><br>Powered by AI</h1>
+          <p>Evaluate your loan eligibility, analyze credit performance, calculate monthly repayments, and get personalized financial advisor guidance using advanced AI reasoning.</p>
+          <div class="hero-cta">
+            <a href="eligibility.html" class="btn btn-primary btn-lg"><i class="fas fa-check-circle"></i> Check Eligibility</a>
+            <a href="emi.html" class="btn btn-outline btn-lg"><i class="fas fa-calculator"></i> Calculate EMI</a>
+          </div>
+        </div>
+
+        <!-- Floating visual cards -->
+        <div class="float-card float-card-1">
+          <div class="fc-label">Loan Amount</div>
+          <div class="fc-value green">₹24,00,000</div>
+          <div class="fc-sub"><i class="fas fa-check-circle" style="color:var(--success)"></i> Eligible</div>
+        </div>
+        <div class="float-card float-card-2">
+          <div class="fc-label">Credit Score</div>
+          <div class="fc-value blue">785</div>
+          <div class="fc-sub">Excellent Rating</div>
+        </div>
+        <div class="float-card float-card-3">
+          <div class="fc-label">Monthly EMI</div>
+          <div class="fc-value purple">₹18,240</div>
+          <div class="fc-sub">At 10.5% p.a.</div>
+        </div>
+      </section>
+
+      <!-- Stat Grid -->
+      <section class="section-sm">
+        <div class="stat-grid">
+          <div class="glass-card stat-card">
+            <div class="stat-icon si-blue"><i class="fas fa-users"></i></div>
+            <div class="stat-value">10,000+</div>
+            <div class="stat-label">Users Analyzed</div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon si-green"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-value">8,500+</div>
+            <div class="stat-label">Loans Approved</div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon si-purple"><i class="fas fa-calculator"></i></div>
+            <div class="stat-value">25,000+</div>
+            <div class="stat-label">EMIs Calculated</div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon si-teal"><i class="fas fa-brain"></i></div>
+            <div class="stat-value">50,000+</div>
+            <div class="stat-label">AI Insights</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Suite -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Our Intelligent Suite</h2>
+          <p>Leverage rule-based validations and neural reasoning to optimize your loan planning.</p>
+        </div>
+        <div class="grid-4">
+          <div class="glass-card feature-card fc-blue" onclick="location.href='eligibility.html'">
+            <div class="feature-icon-wrap fi-blue"><i class="fas fa-check-circle"></i></div>
+            <h3>Loan Eligibility Checker</h3>
+            <p>Check if you meet requirements using Indian banking rules for income, credit score, and existing EMI obligations.</p>
+            <a href="eligibility.html" class="feature-link">Open Checker <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="glass-card feature-card fc-purple" onclick="location.href='credit-score.html'">
+            <div class="feature-icon-wrap fi-purple"><i class="fas fa-chart-line"></i></div>
+            <h3>Credit Score Analyzer</h3>
+            <p>Evaluate your creditworthiness category, see recommendations for improvement, and get AI plans.</p>
+            <a href="credit-score.html" class="feature-link">Open Analyzer <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="glass-card feature-card fc-teal" onclick="location.href='emi.html'">
+            <div class="feature-icon-wrap fi-teal"><i class="fas fa-calculator"></i></div>
+            <h3>EMI Calculator</h3>
+            <p>Determine monthly payments and amortized schedules using reducing-balance formulas instantly.</p>
+            <a href="emi.html" class="feature-link">Open Calculator <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+          <div class="glass-card feature-card fc-green" onclick="location.href='tips.html'">
+            <div class="feature-icon-wrap fi-green"><i class="fas fa-lightbulb"></i></div>
+            <h3>AI Financial Tips</h3>
+            <p>Obtain highly context-aware Indian market advice regarding loans, savings, investments and taxes.</p>
+            <a href="tips.html" class="feature-link">Get Tips <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it Works -->
+      <section class="section">
+        <div class="section-header">
+          <h2>How It Works</h2>
+          <p>Get AI-powered financial advisory in three simple steps.</p>
+        </div>
+        <div class="grid-3">
+          <div class="glass-card feature-card">
+            <div class="feature-icon-wrap fi-blue"><i class="fas fa-edit"></i></div>
+            <h3>1. Enter Details</h3>
+            <p>Provide basic financial details such as income, age, credit score or loan requirements via clean forms.</p>
+          </div>
+          <div class="glass-card feature-card">
+            <div class="feature-icon-wrap fi-purple"><i class="fas fa-brain"></i></div>
+            <h3>2. AI Analysis</h3>
+            <p>The platform runs local financial formulas and links with Groq's Llama models to evaluate your profile.</p>
+          </div>
+          <div class="glass-card feature-card">
+            <div class="feature-icon-wrap fi-teal"><i class="fas fa-check-double"></i></div>
+            <h3>3. Get Recommendations</h3>
+            <p>See eligibility approvals, EMI graphs, amortized tables, and downloadable personalized advisory reports.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="padding: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+        <p>FinWise AI &copy; 2026 — Intelligent Financial Advisory Platform | Built with Groq AI + Google Sheets</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fas fa-cog" style="margin-right:10px;color:var(--accent-blue)"></i>API Configuration</h2>
+        <button class="modal-close" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-tip"><i class="fas fa-info-circle"></i><span>Your API keys are stored locally in your browser and never sent to any server.</span></div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-key"></i> Groq API Key</label>
+        <input type="password" id="groqKeyInput" class="form-control" placeholder="gsk_xxxxxxxxxxxx">
+        <p class="form-hint"><i class="fas fa-external-link-alt"></i> Get your key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent-blue-light)">console.groq.com</a></p>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-table"></i> Google Sheets Webhook URL</label>
+        <input type="url" id="sheetsUrlInput" class="form-control" placeholder="https://script.google.com/macros/s/...">
+        <p class="form-hint">Deploy your Google Apps Script as a Web App and paste the URL here.</p>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>

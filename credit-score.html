@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Score Analyzer — FinWise AI</title>
+  <meta name="description" content="Understand credit worthiness categories and get optimization insights.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-brain"></i></div>
+          <div>
+            <span class="logo-name">FinWise AI</span>
+            <span class="logo-tagline">Smart Finance</span>
+          </div>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <p class="nav-section-title">Main Menu</p>
+        <ul>
+          <li class="nav-item"><a href="index.html"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+          <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
+          <li class="nav-item"><a href="credit-score.html" class="active"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
+          <li class="nav-item"><a href="emi.html"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="tips.html"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
+        </ul>
+        <p class="nav-section-title">Configuration</p>
+        <ul>
+          <li class="nav-item"><a href="#" onclick="openSettings();return false;"><i class="fas fa-cog nav-icon"></i><span>API Settings</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <div class="api-status" onclick="openSettings()">
+          <div class="status-dot inactive" id="apiStatusDot"></div>
+          <span id="apiStatusText">Configure API Key</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hamburger & Overlay -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-content">
+          <h1>Credit Score Analyzer</h1>
+          <p>Analyze your CIBIL rating credit score, check relative status, and explore actionable steps for scoring higher.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid-2">
+          <!-- Input Column -->
+          <div>
+            <div class="glass-card" style="padding:30px; margin-bottom:24px;">
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:20px;"><i class="fas fa-chart-bar" style="color:var(--accent-blue); margin-right:8px;"></i>Input Credit Score</h3>
+              <div class="form-group" style="margin-bottom:28px;">
+                <label class="form-label" style="display:flex; justify-content:space-between;">
+                  <span>CIBIL Score Range</span>
+                  <span id="scoreDisplay" style="font-size:22px; font-weight:800; color:var(--accent-blue-light)">700</span>
+                </label>
+                <div class="range-slider" style="margin: 15px 0;">
+                  <input type="range" id="scoreSlider" min="300" max="900" value="700">
+                  <div class="range-labels">
+                    <span>300 (Poor)</span>
+                    <span>600 (Average)</span>
+                    <span>750 (Excellent)</span>
+                    <span>900 (Perfect)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="scoreInput">Or Enter Manually</label>
+                <input type="number" id="scoreInput" class="form-control" placeholder="700" min="300" max="900">
+              </div>
+
+              <button class="btn btn-primary btn-block" onclick="analyzeScore()"><i class="fas fa-search"></i> Analyze Credit Worthiness</button>
+            </div>
+
+            <!-- Conditions summary table from screenshot -->
+            <div class="glass-card" style="padding:24px;">
+              <h4 style="font-family:'Space Grotesk', sans-serif; font-size:14px; margin-bottom:16px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Financial Approval Matrix</h4>
+              <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13px; color:var(--text-secondary);">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--glass-border); font-weight:bold;">
+                    <th style="padding:10px 8px;">Condition</th>
+                    <th style="padding:10px 8px;">Threshold</th>
+                    <th style="padding:10px 8px;">Outcome if Failed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <td style="padding:10px 8px; font-weight:500; color:var(--text-primary);">Monthly Salary</td>
+                    <td style="padding:10px 8px;">&gt; ₹30,000</td>
+                    <td style="padding:10px 8px; color:var(--danger);">Rejected — insufficient income</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <td style="padding:10px 8px; font-weight:500; color:var(--text-primary);">Credit Score</td>
+                    <td style="padding:10px 8px;">&gt; 700</td>
+                    <td style="padding:10px 8px; color:var(--danger);">Rejected — low creditworthiness</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <td style="padding:10px 8px; font-weight:500; color:var(--text-primary);">Existing EMI</td>
+                    <td style="padding:10px 8px;">&lt; ₹20,000</td>
+                    <td style="padding:10px 8px; color:var(--danger);">Rejected — high existing obligations</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 8px; font-weight:500; color:var(--text-primary);">Applicant Age</td>
+                    <td style="padding:10px 8px;">&gt;= 21 years</td>
+                    <td style="padding:10px 8px; color:var(--danger);">Rejected — minimum age requirement</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Result Column -->
+          <div>
+            <!-- Empty state -->
+            <div class="glass-card" id="emptyState" style="padding:60px 40px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+              <i class="fas fa-heartbeat" style="font-size:48px; color:var(--text-muted); margin-bottom:20px;"></i>
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:10px;">Select Score to Analyze</h3>
+              <p style="color:var(--text-secondary); font-size:14px; max-width:300px;">Adjust the slider or enter your score manually, then click Analyze.</p>
+            </div>
+
+            <!-- Score Result Panel -->
+            <div class="result-panel info" id="scoreResult" style="padding: 30px;">
+              <span class="badge badge-success" id="scoreBadge" style="margin-bottom:14px; display:inline-flex;">Good</span>
+              
+              <div class="score-display" style="padding: 10px 0;">
+                <div class="score-ring" id="scoreRing" style="background: conic-gradient(var(--accent-blue) 0% 80%, rgba(255,255,255,0.05) 80% 100%);">
+                  <span class="score-number" id="ringValue">700</span>
+                  <span class="score-ring-label">CIBIL</span>
+                </div>
+              </div>
+
+              <h2 class="result-title" id="scoreCategory" style="font-size: 22px; margin-top:8px;">Excellent Worthiness</h2>
+              <div class="progress-track" style="margin:20px 0 30px;">
+                <div class="progress-fill" id="scoreProgressBar" style="width: 80%;"></div>
+              </div>
+
+              <!-- Recommendation List -->
+              <div id="recsSection" style="margin-top:20px;">
+                <h4 style="font-family:'Space Grotesk', sans-serif; font-size:14px; margin-bottom:16px; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.04em;">Improvement Checklist</h4>
+                <div style="display:flex; flex-direction:column; gap:12px;" id="recsContainer">
+                  <!-- recommendations injected here -->
+                </div>
+              </div>
+
+              <!-- AI advisory -->
+              <div class="ai-response-card" id="creditAI" style="display:none; margin-top:24px;">
+                <div class="ai-label"><i class="fas fa-robot"></i> AI Score Enhancement Strategy</div>
+                <div class="ai-text" id="aiText">Generating report...</div>
+              </div>
+
+              <div style="display:flex; gap:12px; margin-top:30px;">
+                <button class="btn btn-primary" id="aiBtn" onclick="getCreditAI()" style="flex:1;"><i class="fas fa-brain"></i> Ask AI for Tips</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+        <p>FinWise AI &copy; 2026 — Intelligent Financial Advisory Platform | Built with Groq AI + Google Sheets</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fas fa-cog" style="margin-right:10px;color:var(--accent-blue)"></i>API Configuration</h2>
+        <button class="modal-close" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-tip"><i class="fas fa-info-circle"></i><span>Your API keys are stored locally in your browser and never sent to any server.</span></div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-key"></i> Groq API Key</label>
+        <input type="password" id="groqKeyInput" class="form-control" placeholder="gsk_xxxxxxxxxxxx">
+        <p class="form-hint"><i class="fas fa-external-link-alt"></i> Get your key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent-blue-light)">console.groq.com</a></p>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-table"></i> Google Sheets Webhook URL</label>
+        <input type="url" id="sheetsUrlInput" class="form-control" placeholder="https://script.google.com/macros/s/...">
+        <p class="form-hint">Deploy your Google Apps Script as a Web App and paste the URL here.</p>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/credit-score.js"></script>
+</body>
+</html>
