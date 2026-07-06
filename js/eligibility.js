@@ -187,6 +187,7 @@ async function downloadEligibilityPDF() {
   element.style.background = '#0a192f'; // solid dark background
   element.style.padding = '30px';
   element.style.borderRadius = '10px';
+  element.classList.add('pdf-mode');
 
   const opt = {
     margin:       0.5,
@@ -208,6 +209,7 @@ async function downloadEligibilityPDF() {
     element.style.background = originalBackground;
     element.style.padding = '';
     element.style.borderRadius = '';
+    element.classList.remove('pdf-mode');
   }
 }
 

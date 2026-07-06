@@ -190,6 +190,7 @@ async function saveAdvicePDF() {
   element.style.background = '#0a192f'; // solid dark background
   element.style.padding = '30px';
   element.style.borderRadius = '10px';
+  element.classList.add('pdf-mode');
 
   // Hide the history section and buttons just for the PDF
   const historySec = document.getElementById('historySection');
@@ -217,6 +218,7 @@ async function saveAdvicePDF() {
     element.style.background = originalBackground;
     element.style.padding = '';
     element.style.borderRadius = '';
+    element.classList.remove('pdf-mode');
     if (historySec) historySec.style.display = 'block';
     buttons.forEach(b => b.style.display = '');
   }
