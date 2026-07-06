@@ -6,9 +6,9 @@ let calculatedResults = null;
 
 function checkEligibility() {
   const name = document.getElementById('eName').value.trim();
-  const salary = parseFloat(document.getElementById('eSalary').value);
+  const salary = parseFloat(document.getElementById('eSalary').value.replace(/,/g, ''));
   const score = parseInt(document.getElementById('eScore').value);
-  const emi = parseFloat(document.getElementById('eEmi').value);
+  const emi = parseFloat(document.getElementById('eEmi').value.replace(/,/g, ''));
   const age = parseInt(document.getElementById('eAge').value);
 
   if (!name || isNaN(salary) || isNaN(score) || isNaN(emi) || isNaN(age)) {
@@ -177,3 +177,37 @@ function resetForm() {
   document.getElementById('resultPanel').classList.remove('show');
   calculatedResults = null;
 }
+
+async function downloadEligibilityPDF() {
+  if (!calculatedResults) return;
+  const element = document.getElementById('pdfExportArea');
+  
+  // Temporarily adjust styles for better PDF output
+  const originalBackground = element.style.background;
+  element.style.background = '#0a192f'; // solid dark background
+  element.style.padding = '30px';
+  element.style.borderRadius = '10px';
+
+  const opt = {
+    margin:       0.5,
+    filename:     `Loan_Eligibility_${calculatedResults.name.replace(/\s+/g, '_')}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0a192f' },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  showToast('Generating PDF Report...', 'info');
+  
+  try {
+    await html2pdf().set(opt).from(element).save();
+    showToast('PDF downloaded successfully!', 'success');
+  } catch (error) {
+    showToast('Failed to generate PDF.', 'error');
+  } finally {
+    // Restore styles
+    element.style.background = originalBackground;
+    element.style.padding = '';
+    element.style.borderRadius = '';
+  }
+}
+

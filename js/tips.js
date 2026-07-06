@@ -18,10 +18,10 @@ function setQuickPrompt(text) {
 }
 
 async function getAITips() {
-  const income = parseFloat(document.getElementById('tIncome').value);
+  const income = parseFloat(document.getElementById('tIncome').value.replace(/,/g, ''));
   const score = parseInt(document.getElementById('tScore').value);
-  const emi = parseFloat(document.getElementById('tEmi').value);
-  const savings = parseFloat(document.getElementById('tSavings').value);
+  const emi = parseFloat(document.getElementById('tEmi').value.replace(/,/g, ''));
+  const savings = parseFloat(document.getElementById('tSavings').value.replace(/,/g, ''));
   const age = parseInt(document.getElementById('tAge').value);
   const goal = document.getElementById('tGoal').value;
   const question = document.getElementById('tQuestion').value.trim();
@@ -180,18 +180,44 @@ function copyAdvice() {
   showToast('Advisory report copied to clipboard!', 'success');
 }
 
-function saveAdvice() {
+async function saveAdvicePDF() {
   if (!lastAdviceResponse) return;
   
-  const blob = new Blob([`FINWISE AI FINANCIAL ADVISORY REPORT\nGenerated: ${new Date().toLocaleString()}\nQuery: ${lastAdviceQuery}\n\n${lastAdviceResponse}`], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `FinWise-AI-Advisory-${Date.now()}.txt`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const element = document.getElementById('tipsResponse');
   
-  showToast('Downloading report file...', 'success');
+  // Temporarily adjust styles for better PDF output
+  const originalBackground = element.style.background;
+  element.style.background = '#0a192f'; // solid dark background
+  element.style.padding = '30px';
+  element.style.borderRadius = '10px';
+
+  // Hide the history section and buttons just for the PDF
+  const historySec = document.getElementById('historySection');
+  const buttons = element.querySelectorAll('.btn');
+  if (historySec) historySec.style.display = 'none';
+  buttons.forEach(b => b.style.display = 'none');
+
+  const opt = {
+    margin:       0.5,
+    filename:     `FinWise_AI_Advisory_${Date.now()}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0a192f' },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  showToast('Generating PDF Report...', 'info');
+  
+  try {
+    await html2pdf().set(opt).from(element).save();
+    showToast('PDF downloaded successfully!', 'success');
+  } catch (error) {
+    showToast('Failed to generate PDF.', 'error');
+  } finally {
+    // Restore styles and visibility
+    element.style.background = originalBackground;
+    element.style.padding = '';
+    element.style.borderRadius = '';
+    if (historySec) historySec.style.display = 'block';
+    buttons.forEach(b => b.style.display = '');
+  }
 }

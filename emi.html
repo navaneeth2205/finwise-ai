@@ -35,6 +35,7 @@
           <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
           <li class="nav-item"><a href="credit-score.html"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
           <li class="nav-item"><a href="emi.html" class="active"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="sip.html"><i class="fas fa-chart-pie nav-icon"></i><span>SIP Calculator</span></a></li>
           <li class="nav-item"><a href="tips.html"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
         </ul>
         <p class="nav-section-title">Configuration</p>
@@ -71,10 +72,10 @@
               <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:20px;"><i class="fas fa-coins" style="color:var(--accent-blue); margin-right:8px;"></i>Loan Parameters</h3>
               <form id="emiForm" onsubmit="event.preventDefault(); calculateEMI();">
                 <div class="form-group">
-                  <label class="form-label" for="ePrincipal">Principal Loan Amount (₹)</label>
+                  <label class="form-label" for="ePrincipal">Loan Amount (Principal) ₹</label>
                   <div class="input-wrapper">
                     <span class="input-prefix">₹</span>
-                    <input type="number" id="ePrincipal" class="form-control" placeholder="500000" min="1000" required>
+                    <input type="text" id="ePrincipal" class="form-control format-currency" placeholder="5,00,000" required>
                   </div>
                 </div>
                 <div class="form-group">
@@ -136,13 +137,16 @@
               </div>
 
               <!-- Visual progress split -->
-              <div style="margin-top:28px;">
-                <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary); margin-bottom:6px;">
-                  <span>Principal (Split)</span>
-                  <span id="interestPct">Interest (Split)</span>
+              <div class="glass-card" style="padding:24px; margin-top:24px; text-align:center;">
+                <h4 style="font-family:'Space Grotesk', sans-serif; font-size:14px; margin-bottom:16px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Payment Breakdown</h4>
+                
+                <div style="width: 200px; height: 200px; margin: 0 auto 20px;">
+                  <canvas id="emiChart"></canvas>
                 </div>
-                <div class="progress-track">
-                  <div class="progress-fill" id="principalBar" style="width: 50%;"></div>
+                
+                <div style="display:flex; justify-content:space-between; font-size:12.5px; font-weight:500;">
+                  <span style="color:var(--accent-blue-light);"><i class="fas fa-circle"></i> Principal</span>
+                  <span style="color:var(--danger);"><i class="fas fa-circle"></i> Total Interest</span>
                 </div>
               </div>
 
@@ -219,6 +223,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/app.js"></script>
   <script src="js/emi.js"></script>
 </body>

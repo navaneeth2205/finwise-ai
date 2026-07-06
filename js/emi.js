@@ -3,6 +3,7 @@
 // ==========================================
 
 let emiResults = null;
+let emiChartInstance = null;
 
 function setTenure(months) {
   const input = document.getElementById('eTenure');
@@ -10,7 +11,7 @@ function setTenure(months) {
 }
 
 function calculateEMI() {
-  const principal = parseFloat(document.getElementById('ePrincipal').value);
+  const principal = parseFloat(document.getElementById('ePrincipal').value.replace(/,/g, ''));
   const annualRate = parseFloat(document.getElementById('eRate').value);
   const tenure = parseInt(document.getElementById('eTenure').value);
 
@@ -42,14 +43,33 @@ function calculateEMI() {
   document.getElementById('breakInterest').textContent = formatINR(totalInterest);
   document.getElementById('breakTotal').textContent = formatINR(totalPayment);
 
-  // Interest Percentage split
-  const interestPct = (totalInterest / totalPayment) * 100;
-  const principalPct = 100 - interestPct;
-
-  document.getElementById('interestPct').textContent = `${interestPct.toFixed(1)}% Interest Split`;
-  
-  const bar = document.getElementById('principalBar');
-  bar.style.width = `${principalPct}%`;
+  // Render Chart.js
+  const ctx = document.getElementById('emiChart');
+  if (ctx) {
+    if (emiChartInstance) {
+      emiChartInstance.destroy();
+    }
+    emiChartInstance = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Principal', 'Total Interest'],
+        datasets: [{
+          data: [principal, totalInterest],
+          backgroundColor: ['#60a5fa', '#ef4444'],
+          borderWidth: 0,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        cutout: '75%'
+      }
+    });
+  }
 
   // Hide AI card & reset schedule
   document.getElementById('emiAI').style.display = 'none';

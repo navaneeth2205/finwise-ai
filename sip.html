@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP & Investment Calculator — FinWise AI</title>
+  <meta name="description" content="Calculate your mutual fund and SIP investment returns powered by FinWise AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-brain"></i></div>
+          <div>
+            <span class="logo-name">FinWise AI</span>
+            <span class="logo-tagline">Smart Finance</span>
+          </div>
+        </a>
+      </div>
+      <div class="nav-menu">
+        <p class="nav-section-title">Main Menu</p>
+        <ul>
+          <li class="nav-item"><a href="index.html"><i class="fas fa-home nav-icon"></i><span>Home</span></a></li>
+          <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
+          <li class="nav-item"><a href="credit-score.html"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
+          <li class="nav-item"><a href="emi.html"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="sip.html" class="active"><i class="fas fa-chart-pie nav-icon"></i><span>SIP Calculator</span></a></li>
+          <li class="nav-item"><a href="tips.html"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
+        </ul>
+        <p class="nav-section-title">Configuration</p>
+        <ul>
+          <li class="nav-item"><a href="#" onclick="openSettings();return false;"><i class="fas fa-cog nav-icon"></i><span>API Settings</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <div class="api-status" onclick="openSettings()">
+          <div class="status-dot inactive" id="apiStatusDot"></div>
+          <span id="apiStatusText">Configure API Key</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hamburger & Overlay -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-header-content">
+          <h1>SIP & ROI Calculator</h1>
+          <p>Plan your wealth generation by visualizing the compound interest on your mutual fund and SIP investments over time.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid-2">
+          <!-- Input Form Column -->
+          <div>
+            <div class="glass-card" style="padding:30px;">
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:20px;"><i class="fas fa-wallet" style="color:var(--accent-purple); margin-right:8px;"></i>Investment Parameters</h3>
+              <form id="sipForm" onsubmit="event.preventDefault(); calculateSIP();">
+                <div class="form-group">
+                  <label class="form-label" for="sMonthly">Monthly Investment (₹)</label>
+                  <div class="input-wrapper">
+                    <span class="input-prefix">₹</span>
+                    <input type="text" id="sMonthly" class="form-control format-currency" placeholder="10,000" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="sRate">Expected Return Rate (p.a) %</label>
+                  <input type="number" id="sRate" class="form-control" placeholder="12" step="0.1" min="1" max="30" required>
+                  <div class="form-hint">Historical index average is ~12-15%</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="sYears">Time Period (Years)</label>
+                  <input type="number" id="sYears" class="form-control" placeholder="10" min="1" max="50" required>
+                  <div class="form-hint">Power of compounding works best long-term</div>
+                </div>
+                
+                <div style="display:flex; gap:12px; margin-top: 10px;">
+                  <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-chart-line"></i> Calculate Returns</button>
+                </div>
+              </form>
+            </div>
+            
+            <div class="glass-card" style="padding:24px; margin-top:24px;">
+               <h4 style="font-family:'Space Grotesk', sans-serif; font-size:14px; margin-bottom:12px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Wealth Breakdown</h4>
+               <div style="width: 200px; height: 200px; margin: 0 auto 20px;">
+                 <canvas id="sipChart"></canvas>
+               </div>
+               <div style="display:flex; justify-content:space-between; font-size:12.5px; font-weight:500;">
+                 <span style="color:var(--accent-blue-light);"><i class="fas fa-circle"></i> Invested Amount</span>
+                 <span style="color:var(--success);"><i class="fas fa-circle"></i> Estimated Returns</span>
+               </div>
+            </div>
+          </div>
+
+          <!-- Result Panel Column -->
+          <div>
+            <div class="glass-card" id="sipEmpty" style="padding:60px 40px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+              <i class="fas fa-chart-bar" style="font-size:48px; color:var(--text-muted); margin-bottom:20px;"></i>
+              <h3 style="font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:10px;">Wealth Forecaster</h3>
+              <p style="color:var(--text-secondary); font-size:14px; max-width:300px;">Enter your monthly investment and timeline to visualize how your money compounds over time.</p>
+            </div>
+
+            <div class="result-panel info" id="sipResult" style="padding:30px;">
+              <div class="result-icon-big">📈</div>
+              <h2 class="result-title">Projected Wealth</h2>
+              <p class="result-subtitle">Future value of your investment based on compounding.</p>
+
+              <div style="text-align:center; margin-top:10px; margin-bottom: 24px;">
+                <div style="font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Total Value</div>
+                <div class="metric-value success-color" id="totalWealth" style="font-size:42px;">₹0</div>
+              </div>
+
+              <div class="result-metrics">
+                <div class="metric-card">
+                  <div class="metric-label">Invested Amount</div>
+                  <div class="metric-value blue-color" id="investedAmt">₹0</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">Wealth Gained</div>
+                  <div class="metric-value success-color" id="wealthGained">₹0</div>
+                </div>
+              </div>
+              
+              <div class="ai-response-card" id="sipAI" style="display:none; margin-top:24px;">
+                <div class="ai-label"><i class="fas fa-robot"></i> FinWise AI Recommendation</div>
+                <div class="ai-text" id="aiText">Analyzing...</div>
+              </div>
+
+              <div style="display:flex; gap:12px; margin-top:24px;">
+                <button class="btn btn-primary" id="aiBtn" onclick="getSipAI()" style="flex:1;"><i class="fas fa-brain"></i> Get AI Advisory</button>
+                <button class="btn btn-ghost" onclick="resetSip()"><i class="fas fa-undo"></i> Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer style="padding: 40px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+        <p>FinWise AI &copy; 2026 — Intelligent Financial Advisory Platform | Built with Groq AI + Google Sheets</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fas fa-cog" style="margin-right:10px;color:var(--accent-blue)"></i>API Configuration</h2>
+        <button class="modal-close" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-tip"><i class="fas fa-info-circle"></i><span>Your API keys are stored locally in your browser and never sent to any server.</span></div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-key"></i> Groq API Key</label>
+        <input type="password" id="groqKeyInput" class="form-control" placeholder="gsk_xxxxxxxxxxxx">
+        <p class="form-hint"><i class="fas fa-external-link-alt"></i> Get your key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent-blue-light)">console.groq.com</a></p>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-table"></i> Google Sheets Webhook URL</label>
+        <input type="url" id="sheetsUrlInput" class="form-control" placeholder="https://script.google.com/macros/s/...">
+        <p class="form-hint">Deploy your Google Apps Script as a Web App and paste the URL here.</p>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sip.js"></script>
+</body>
+</html>

@@ -205,10 +205,38 @@ function animateCounter(element, target, duration = 1200, prefix = '', suffix = 
 }
 
 // ========================
+// INPUT FORMATTING
+// ========================
+function setupCurrencyFormatting() {
+  const currencyInputs = document.querySelectorAll('.format-currency');
+  
+  currencyInputs.forEach(input => {
+    input.addEventListener('input', function(e) {
+      // Remove all non-numeric characters
+      let value = this.value.replace(/[^\d]/g, '');
+      if (value === '') {
+        this.value = '';
+        return;
+      }
+      
+      // Format with commas (Indian numbering system)
+      let formattedValue = new Intl.NumberFormat('en-IN').format(parseInt(value, 10));
+      this.value = formattedValue;
+    });
+
+    // Provide raw value parsing utility on the element
+    input.getRawValue = function() {
+      return parseFloat(this.value.replace(/[^\d]/g, '')) || 0;
+    };
+  });
+}
+
+// ========================
 // INIT ON DOM READY
 // ========================
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
+  setupCurrencyFormatting();
 
   // Close modal on overlay click
   const settingsModal = document.getElementById('settingsModal');

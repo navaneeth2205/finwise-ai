@@ -35,6 +35,7 @@
           <li class="nav-item"><a href="eligibility.html"><i class="fas fa-check-circle nav-icon"></i><span>Loan Eligibility</span></a></li>
           <li class="nav-item"><a href="credit-score.html"><i class="fas fa-chart-line nav-icon"></i><span>Credit Score</span></a></li>
           <li class="nav-item"><a href="emi.html"><i class="fas fa-calculator nav-icon"></i><span>EMI Calculator</span></a></li>
+          <li class="nav-item"><a href="sip.html"><i class="fas fa-chart-pie nav-icon"></i><span>SIP Calculator</span></a></li>
           <li class="nav-item"><a href="tips.html" class="active"><i class="fas fa-lightbulb nav-icon"></i><span>AI Financial Tips</span></a></li>
         </ul>
         <p class="nav-section-title">Configuration</p>
@@ -73,7 +74,7 @@
                 <div class="form-grid-2">
                   <div class="form-group">
                     <label class="form-label" for="tIncome">Monthly Income (₹)</label>
-                    <input type="number" id="tIncome" class="form-control" placeholder="60000" required>
+                    <input type="text" id="tIncome" class="form-control format-currency" placeholder="60,000" required>
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="tScore">Credit Score</label>
@@ -84,11 +85,11 @@
                 <div class="form-grid-2">
                   <div class="form-group">
                     <label class="form-label" for="tEmi">Existing EMIs (₹)</label>
-                    <input type="number" id="tEmi" class="form-control" placeholder="5000" required>
+                    <input type="text" id="tEmi" class="form-control format-currency" placeholder="5,000" required>
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="tSavings">Monthly Savings (₹)</label>
-                    <input type="number" id="tSavings" class="form-control" placeholder="15000" required>
+                    <input type="text" id="tSavings" class="form-control format-currency" placeholder="15,000" required>
                   </div>
                 </div>
 
@@ -163,7 +164,7 @@
 
               <div style="display:flex; gap:12px; margin-top:24px;">
                 <button class="btn btn-outline" onclick="copyAdvice()"><i class="fas fa-copy"></i> Copy Text</button>
-                <button class="btn btn-ghost" onclick="saveAdvice()"><i class="fas fa-download"></i> Save Report</button>
+                <button class="btn btn-ghost" onclick="saveAdvicePDF()"><i class="fas fa-file-pdf"></i> Save as PDF</button>
               </div>
 
               <!-- History list -->
@@ -218,6 +219,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/app.js"></script>
   <script src="js/tips.js"></script>
 </body>

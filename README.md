@@ -1,113 +1,111 @@
-# FinWise AI 🏦
-### Intelligent Loan Eligibility, Credit Analysis & Financial Advisory Platform
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Live-success?style=for-the-badge&logo=github" alt="Live Status">
+  <br>
+  
+  <h1>🏦 FinWise AI</h1>
+  <h3>Intelligent Financial Advisory & Portfolio Planning Platform</h3>
+  
+  <p>
+    An AI-powered BFSI (Banking, Financial Services & Insurance) web platform designed to simplify and accelerate personal financial decision-making using cutting-edge Generative AI and strict rule-based logic.
+  </p>
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Groq AI](https://img.shields.io/badge/Groq_AI-Free-brightgreen?style=flat)
-![Google Sheets](https://img.shields.io/badge/Google_Sheets-34A853?style=flat&logo=google-sheets&logoColor=white)
+  <div>
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5">
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS3">
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript">
+    <img src="https://img.shields.io/badge/Groq_Llama3.3-Free-brightgreen?style=flat&logo=meta" alt="Groq AI">
+    <img src="https://img.shields.io/badge/Chart.js-FF6384?style=flat&logo=chartdotjs&logoColor=white" alt="ChartJS">
+    <img src="https://img.shields.io/badge/Google_Sheets-34A853?style=flat&logo=google-sheets&logoColor=white" alt="Google Sheets">
+  </div>
+  
+  <br>
+  <i>Developed for the <b>SmartBridge Vibe Coding Internship (SIP 2026)</b> at SRM University AP.</i>
+</div>
 
 ---
 
 ## 📌 Project Overview
 
-**FinWise AI** is a smart, AI-powered BFSI (Banking, Financial Services & Insurance) web platform built to simplify financial decision-making. It provides users with intelligent loan eligibility analysis, credit score evaluation, EMI calculation, and AI-generated financial guidance — all within a single, responsive web interface.
+**FinWise AI** bridges the gap between complex banking rules and everyday consumers. By providing instant access to loan eligibility rules, visual EMI & SIP forecasting, and an on-demand AI financial advisor, users can make highly informed decisions before approaching a bank.
 
-This project was developed as part of the **SmartBridge Vibe Coding Internship (SIP 2026)** at **SRM University AP**.
+### ✨ Premium Features Added in Final Version:
+- 📊 **Dynamic Data Visualization:** Real-time Chart.js doughnut charts for EMI and SIP return breakdowns.
+- 📄 **PDF Report Generation:** One-click export of AI Financial Advisory Reports and Loan Approvals as professional PDF documents using `html2pdf.js`.
+- 💰 **SIP ROI Calculator:** A brand new module dedicated to wealth generation and mutual fund compounding.
+- 💎 **Intelligent Input Formatting:** Real-time currency formatting (Indian numbering system) for an enterprise-level UX.
 
 ---
 
-## 👨‍💻 Developed By
+## 👨‍💻 Development Team
 
 | Name | Role |
 |------|------|
-| Jainesh Bharti | Frontend + AI Integration |
-| Navneeth Biyyapu| Frontend + Google Sheets Integration |
-| Vishnu Vardhana Reddy Paluvai | Frontend + UI Development |
+| **Jainesh Bharti** | Frontend + AI Integration |
+| **Navneeth Biyyapu**| Frontend + Google Sheets Integration |
+| **Vishnu Vardhana Reddy Paluvai** | Frontend + UI Development |
+| **Balaji Katam** | Team Lead |
+| **Satish Sahu** | Member |
 
 ---
 
-## 🚀 Features
+## 🚀 The Intelligent Suite
 
-- ✅ **Loan Eligibility Checker** — Rule-based validation to check loan approval status
-- ✅ **Credit Score Analyzer** — Classifies credit profile into Excellent / Good / Poor
-- ✅ **EMI Calculator** — Uses standard reducing-balance EMI formula
-- ✅ **Groq AI Integration** — Personalized financial advice using Groq API (free)
-- ✅ **Google Sheets Integration** — Serverless data storage via Google Apps Script
-- ✅ **Glassmorphism UI** — Modern fintech-inspired responsive design
-- ✅ **Mobile Responsive** — Works across desktop, tablet, and mobile devices
+<details open>
+<summary><b>1. Loan Eligibility Checker</b></summary>
+Uses strict rule-based logic (Income > ₹30,000, Score > 700, EMI < ₹20,000) to instantly approve or reject applicants, assigning Risk Levels (Low, Medium, High). Includes 1-click PDF certificate generation.
+</details>
 
----
+<details open>
+<summary><b>2. SIP ROI Calculator 🆕</b></summary>
+Calculates compounding mutual fund returns over time. Features a dynamic Chart.js breakdown of the invested amount vs. total wealth gained.
+</details>
 
-## 🛠️ Tech Stack
+<details open>
+<summary><b>3. Credit Score Analyzer</b></summary>
+Classifies your credit profile and immediately provides actionable steps on how to optimize it for better loan terms.
+</details>
 
-| Technology | Purpose |
-|-----------|---------|
-| HTML5 | Page structure |
-| CSS3 | Glassmorphism styling, animations, responsive layout |
-| Vanilla JavaScript | Form validation, calculations, DOM manipulation, API calls |
-| Groq AI | AI-powered financial recommendations (free API) |
-| Google Apps Script | Serverless backend & data storage |
-| Google Sheets | Database for storing user eligibility results |
-| GitHub Pages | Deployment & hosting |
+<details open>
+<summary><b>4. EMI Calculator</b></summary>
+Uses standard reducing-balance math. Features real-time visual doughnut charts and generates complete month-by-month amortization schedules.
+</details>
 
----
-
-## 📁 Project Structure
-
-```
-finwise-ai/
-│
-├── index.html          # Landing page
-├── eligibility.html    # Loan Eligibility Checker
-├── credit-score.html   # Credit Score Analyzer
-├── emi.html            # EMI Calculator
-├── tips.html           # AI Financial Tips
-│
-├── css/
-│   └── style.css       # Main stylesheet
-│
-├── js/
-│   └── script.js       # JavaScript logic
-│
-└── google-apps-script.gs  # Google Sheets backend
-```
+<details open>
+<summary><b>5. AI Financial Tips (Powered by Llama 3.3)</b></summary>
+Context-aware financial advisor that takes your income, debt, score, and goals into account to generate personalized strategies. Export your consultation as a PDF report instantly.
+</details>
 
 ---
 
-## 💡 How It Works
+## 📸 Platform Previews
 
-1. User enters financial details (name, salary, credit score, EMI, age)
-2. JavaScript validates and processes the data using business rules
-3. Groq AI generates personalized financial recommendations
-4. Results are displayed dynamically without page reload
-5. Data is stored in Google Sheets via Apps Script POST request
+> *(Note to Developers: Add your screenshots of the deployed application here before final submission!)*
 
----
-
-## 📊 Loan Eligibility Rules
-
-| Condition | Threshold |
-|-----------|-----------|
-| Monthly Salary | > ₹30,000 |
-| Credit Score | > 700 |
-| Existing EMI | < ₹20,000 |
-| Applicant Age | ≥ 21 years |
-
-**Eligible Loan Amount = Monthly Salary × 20**
+| Dashboard | AI Advisor PDF Export | Chart.js Visualizations |
+| :---: | :---: | :---: |
+| ![Dashboard Screenshot](https://via.placeholder.com/600x400/080f1f/3b82f6?text=Dashboard+View) | ![PDF Export Screenshot](https://via.placeholder.com/600x400/080f1f/8b5cf6?text=PDF+Report+Generation) | ![Charts Screenshot](https://via.placeholder.com/600x400/080f1f/22c55e?text=Interactive+Charts) |
 
 ---
 
-## 🌐 Deployment
+## 🛠️ Technical Architecture & Setup
 
-The application is deployed using **GitHub Pages** (static hosting — no backend server required).
+This project uses a highly efficient **Serverless Architecture**, allowing it to be hosted entirely on static providers without incurring backend server costs.
 
-🔗 **Live Link:** [https://jaineshbharti5.github.io/finwise-ai](https://jaineshbharti5.github.io/finwise-ai)
+### Tech Stack Breakdown:
+- **Frontend & UI:** HTML5, Vanilla JavaScript, CSS3 (Custom Dark Glassmorphism Design System)
+- **Data Visualization:** Chart.js
+- **PDF Export Engine:** html2pdf.js
+- **Generative AI Backend:** Groq API (Running Llama 3.3 70B model via REST API)
+- **Database / Persistence:** Google Sheets via Google Apps Script (Serverless Webhook)
+- **Hosting:** GitHub Pages
+
+### Running Locally:
+1. Clone the repository: `git clone https://github.com/navaneeth2205/finwise-ai.git`
+2. Open the directory and simply launch `index.html` in any modern web browser. 
+3. *Note:* For the AI to work, click the **Settings (⚙️)** gear in the bottom left sidebar and enter your free Groq API key.
 
 ---
 
-## 📚 Internship Details
-
-- **Program:** SmartBridge Vibe Coding Internship — SIP 2026
-- **University:** SRM University AP
-- **Project:** FinWise AI — Intelligent Loan Eligibility, Credit Analysis & Financial Advisory Platform
+<div align="center">
+  <p>Built with ❤️ by the FinWise Team | <b>SmartBridge SIP 2026</b></p>
+</div>
