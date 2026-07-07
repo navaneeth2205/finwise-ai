@@ -84,11 +84,9 @@ Context-aware financial advisor that takes your income, debt, score, and goals i
 
 ## 📸 Platform Previews
 
-> *(Note to Developers: Add your screenshots of the deployed application here before final submission!)*
-
 | Dashboard | AI Advisor PDF Export | Chart.js Visualizations |
 | :---: | :---: | :---: |
-| ![Dashboard Screenshot](https://via.placeholder.com/600x400/080f1f/3b82f6?text=Dashboard+View) | ![PDF Export Screenshot](https://via.placeholder.com/600x400/080f1f/8b5cf6?text=PDF+Report+Generation) | ![Charts Screenshot](https://via.placeholder.com/600x400/080f1f/22c55e?text=Interactive+Charts) |
+| ![Dashboard Screenshot](assets/dashboard.png) | ![PDF Export Screenshot](assets/pdf.png) | ![Charts Screenshot](assets/charts.png) |
 
 ---
 
