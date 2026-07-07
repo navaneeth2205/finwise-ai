@@ -38,11 +38,16 @@
 
 ## 👨‍💻 Development Team
 
+### Core Developers
 | Name | Role |
 |------|------|
-| **Jainesh Bharti** | Frontend + AI Integration |
 | **Navneeth Biyyapu**| Frontend + Google Sheets Integration |
+| **Jainesh Bharti** | Frontend + AI Integration |
 | **Vishnu Vardhana Reddy Paluvai** | Frontend + UI Development |
+
+### Additional Members
+| Name | Role |
+|------|------|
 | **Balaji Katam** | Team Lead |
 | **Satish Sahu** | Member |
 
