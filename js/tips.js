@@ -202,7 +202,7 @@ async function saveAdvicePDF() {
     margin:       0.5,
     filename:     `FinWise_AI_Advisory_${Date.now()}.pdf`,
     image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0a192f' },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0a192f', scrollY: 0, windowY: 0 },
     jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
