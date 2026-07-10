@@ -17,6 +17,9 @@
     <img src="https://img.shields.io/badge/Chart.js-FF6384?style=flat&logo=chartdotjs&logoColor=white" alt="ChartJS">
     <img src="https://img.shields.io/badge/Google_Sheets-34A853?style=flat&logo=google-sheets&logoColor=white" alt="Google Sheets">
   </div>
+  <br>
+  
+  <h3>🎥 <a href="https://drive.google.com/file/d/1R7yStCQXAuEFCktQstJzgT8etC3Lp7Fr/view">Watch the Full Demo Video Here</a></h3>
   
   <br>
   <i>Developed for the <b>SmartBridge Vibe Coding Internship (SIP 2026)</b> at SRM University AP.</i>
